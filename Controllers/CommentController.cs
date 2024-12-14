@@ -35,6 +35,10 @@ namespace leave_a_comment_api.Controllers
             {
                 return BadRequest();
             }
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return BadRequest("Comment text cannot be empty.");
+            }
 
             await _commentService.AddCommentAsync(text);
             return Ok();
