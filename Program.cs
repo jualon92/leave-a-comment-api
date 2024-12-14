@@ -1,4 +1,5 @@
 using leave_a_comment_api.Data;
+using leave_a_comment_api.Extensions;
 using leave_a_comment_api.Model;
 using leave_a_comment_api.Repository;
 using leave_a_comment_api.Services;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
- 
+using leave_a_comment_api.ActionFilter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,14 @@ builder.Services.AddScoped<CommentService>();
 
 // Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Add Swagger services using the extension method
+var apiKeyHeaderName = builder.Configuration["Swagger:ApiKeyHeaderName"];
+builder.Services.AddSwaggerDocumentation(apiKeyHeaderName);
+
+
+builder.Services.AddSingleton(new ApiKeyAuthAttribute(builder.Configuration));
+
 
 var app = builder.Build();
 
