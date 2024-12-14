@@ -58,6 +58,10 @@ comments.db
 *.sqlite
 *.sqlite3
 
+
+# Ignorar archivos de configuración de lanzamiento
+Properties/launchSettings.json
+
 # Ignore app settings files
 appsettings.json
 appsettings.Development.json
