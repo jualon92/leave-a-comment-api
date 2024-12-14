@@ -1,6 +1,7 @@
 ﻿using leave_a_comment_api.Model;
 using Microsoft.AspNetCore.Mvc;
 using leave_a_comment_api.Services;
+using leave_a_comment_api.ActionFilter;
 
 namespace leave_a_comment_api.Controllers
 {
@@ -21,6 +22,7 @@ namespace leave_a_comment_api.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApiKeyAuthAttribute))]
         public IEnumerable<Comment> Get()
         {
             return _commentService.GetAllCommentsAsync().Result;
