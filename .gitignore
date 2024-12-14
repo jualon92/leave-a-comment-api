@@ -52,6 +52,12 @@ Generated\ Files/
 TestResult.xml
 nunit-*.xml
 
+# Ignorar archivos de base de datos SQLite
+comments.db
+*.db
+*.sqlite
+*.sqlite3
+
 # Ignore app settings files
 appsettings.json
 appsettings.Development.json
