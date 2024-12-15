@@ -15,6 +15,7 @@ https://hospitable-whippet-8bf.notion.site/15d46b093e84801eaac1f8c24ef8d5fe?v=15
 - **.NET 8**
 - **Entity Framework**
 - **SQL**
+- **Swagger** 
 - **VPS** (DigitalOcean Droplet)
 - **Nginx** *(optional, for production deployment)*
 - **Certbot** *(optional, for HTTPS)*
