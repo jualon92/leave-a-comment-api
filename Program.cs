@@ -33,8 +33,24 @@ builder.Services.AddSwaggerDocumentation(apiKeyHeaderName);
 
 builder.Services.AddSingleton(new ApiKeyAuthAttribute(builder.Configuration));
 
+// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy => policy.WithOrigins("https://mini-cog-test.web.app/")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
 
 var app = builder.Build();
+
+// Apply migrations at startup
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<CommentDbContext>();
+    dbContext.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -46,9 +62,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 }
 
-
+app.UseCors("AllowSpecificOrigin");
 app.UseHttpsRedirection();
 app.UseAuthorization();
+ 
 app.MapControllers();
 
 app.Run();
